@@ -1,0 +1,11 @@
+{
+  "type": "code",
+  "modid": "playerskins",
+  "name": "playerskins",
+  "author": "archpriest, balduranne",
+  "description": "Adds the ability to change skins and personalize characters.",
+  "version": "1.0.0",
+  "dependency": {
+    "game": "1.12.6"
+  }
+}
