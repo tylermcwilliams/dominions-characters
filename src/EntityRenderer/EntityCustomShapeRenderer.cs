@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.MathTools;
 using Vintagestory.API.Client;
-using ProtoBuf;
 
-namespace playerskins
+namespace dominions.characters
 {
     public class EntityCustomShapeRenderer : EntityShapeRenderer
     {
@@ -36,16 +30,17 @@ namespace playerskins
         {
             api.Event.ReloadTextures += reloadSkin;
 
-            string[] skinParts = PlayerSkins.skinTypes.Keys.ToArray();
+            string[] skinParts = Core.skinTypes.Keys.ToArray();
             foreach (string part in skinParts)
             {
                 entity.WatchedAttributes.RegisterModifiedListener(part, () =>
                 {
-                    this.reloadSkin();
+                    if (entity.IsRendered)
+                    {
+                        this.reloadSkin();
+                    }
                 });
             }
-
-
         }
 
         bool textureSpaceAllocated = false;
@@ -86,32 +81,15 @@ namespace playerskins
                 Height = capi.EntityTextureAtlas.Size.Height
             };
 
-            /* capi.Render.GlToggleBlend(false);
-             capi.EntityTextureAtlas.RenderTextureIntoAtlas(
-                 entityAtlas,
-                 (int)(origTexPos.x1 * AtlasSize.Width),
-                 (int)(origTexPos.y1 * AtlasSize.Height),
-                 (int)((origTexPos.x2 - origTexPos.x1) * AtlasSize.Width),
-                 (int)((origTexPos.y2 - origTexPos.y1) * AtlasSize.Height),
-                 skinTexPos.x1 * capi.EntityTextureAtlas.Size.Width,
-                 skinTexPos.y1 * capi.EntityTextureAtlas.Size.Height,
-                 -1
-             ); */
-
             capi.Render.GlToggleBlend(true, EnumBlendMode.Overlay);
 
-            int[] skinRenderOrder = new int[]
-            {
-                (int)EnumSkinPart.skincolor,
-                (int)EnumSkinPart.eyecolor,
-                (int)EnumSkinPart.facialhair,
-                (int)EnumSkinPart.hairtype,
-            };
+            string[] skinParts = Enum.GetNames(typeof(EnumSkinPart));
+            string componentPath = "characters:textures/entity/skin/";
 
-            for (int x = 0; x < skinRenderOrder.Length; x++)
+            for (int x = 0; x < skinParts.Length; x++)
             {
-                string skinProperty = Enum.GetName(typeof(EnumSkinPart), x);
-                string componentPath = "playerskins:textures/entity/skin/";
+                AssetLocation componentLoc;
+                string skinProperty = skinParts[x];
                 float alphaTest = 0.005f;
                 if (skinProperty == "haircolor")
                 {
@@ -127,17 +105,53 @@ namespace playerskins
                 switch (skinProperty)
                 {
                     case "skincolor":
-                        componentPath += "skins/" + entity.WatchedAttributes.GetString("sex", "male") + "/" + entity.WatchedAttributes.GetString("skincolor", "tan") + ".png";
+                        componentLoc = new AssetLocation(
+                            componentPath +
+                            "skins/" +
+                            entity.WatchedAttributes.GetString("sex", "male") +
+                            "/" +
+                            entity.WatchedAttributes.GetString("skincolor", "tan") +
+                            ".png"
+                            );
                         alphaTest = -1f;
                         break;
                     case "eyecolor":
-                        componentPath += "eyes/" + entity.WatchedAttributes.GetString("eyecolor", "brown") + ".png";
+                        componentLoc = new AssetLocation(
+                            componentPath +
+                            "eyes/" +
+                            entity.WatchedAttributes.GetString("eyecolor", "brown") +
+                            ".png"
+                            );
                         break;
                     case "facialhair":
-                        componentPath += "facialhairs/" + entity.WatchedAttributes.GetString("facialhair", "full") + "-" + entity.WatchedAttributes.GetString("haircolor", "brown") + ".png";
+                        componentLoc = new AssetLocation(
+                            componentPath +
+                            "facialhairs/" +
+                            entity.WatchedAttributes.GetString("facialhair", "full") +
+                            "-" +
+                            entity.WatchedAttributes.GetString("haircolor", "brown") +
+                            ".png"
+                            );
                         break;
                     case "hairtype":
-                        componentPath += "hairs/" + entity.WatchedAttributes.GetString("hairtype", "m") + "-" + entity.WatchedAttributes.GetString("haircolor", "brown") + ".png";
+                        componentLoc = new AssetLocation(
+                            componentPath +
+                            "hairs/" +
+                            entity.WatchedAttributes.GetString("hairtype", "m") +
+                            "-" +
+                            entity.WatchedAttributes.GetString("haircolor", "brown") +
+                            ".png"
+                            );
+                        break;
+                    default:
+                        componentLoc = new AssetLocation(
+                            componentPath +
+                            "hairs/" +
+                            entity.WatchedAttributes.GetString("hairtype", "m") +
+                            "-" +
+                            entity.WatchedAttributes.GetString("haircolor", "brown") +
+                            ".png"
+                            );
                         break;
                 }
 
@@ -145,7 +159,6 @@ namespace playerskins
                 int textureSubID;
                 LoadedTexture componentTexture = new LoadedTexture(capi);
                 TextureAtlasPosition texPos = null;
-                AssetLocation componentLoc = new AssetLocation(componentPath);
                 BitmapRef bitMap = capi.Assets.Get(componentLoc).ToBitmap(capi);
                 capi.Render.GetOrLoadTexture(componentLoc, bitMap, ref componentTexture);
 

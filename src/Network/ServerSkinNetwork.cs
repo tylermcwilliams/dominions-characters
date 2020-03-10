@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Vintagestory.API.Server;
-using Vintagestory.API.Common;
-using Vintagestory.GameContent;
-using Vintagestory.API.Common.Entities;
-using Vintagestory.API.MathTools;
-using Vintagestory.API.Client;
-using ProtoBuf;
+﻿using Vintagestory.API.Server;
 
-namespace playerskins
+namespace dominions.characters
 {
     public class ServerSkinNetwork
     {

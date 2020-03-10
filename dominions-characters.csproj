@@ -7,8 +7,8 @@
     <ProjectGuid>{B1C71210-10F5-4BEF-B2FD-3A5F628CC905}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>playerskins</RootNamespace>
-    <AssemblyName>playerskins</AssemblyName>
+    <RootNamespace>dominions.characters</RootNamespace>
+    <AssemblyName>dominions-characters</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\playerskins\</OutputPath>
+    <OutputPath>..\..\bin\Debug\dominions-characters\</OutputPath>
     <IntermediateOutputPath>..\..\obj\Debug\playerskins\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -65,54 +65,54 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\dark-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\dark-green.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\deep-blue.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\default.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\grey.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\light-blue.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\light-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\light-green.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\eyes\milky.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\facialhairs\full-black.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\facialhairs\full-blonde.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\facialhairs\full-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\facialhairs\full-dark-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\facialhairs\full-red.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\facialhairs\full-white.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\hairs\m-black.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\hairs\m-blonde.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\hairs\m-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\hairs\m-dark-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\hairs\m-red.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\hairs\m-white.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\female\brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\female\light-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\female\olive.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\female\pale.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\female\tan.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\female\yellow.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\male\brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\male\light-brown.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\male\olive.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\male\pale.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\male\tan.png" />
-    <Content Include="assets\playerskins\textures\entity\skin\skins\male\yellow.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\dark-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\dark-green.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\deep-blue.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\default.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\grey.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\light-blue.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\light-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\light-green.png" />
+    <Content Include="assets\characters\textures\entity\skin\eyes\milky.png" />
+    <Content Include="assets\characters\textures\entity\skin\facialhairs\full-black.png" />
+    <Content Include="assets\characters\textures\entity\skin\facialhairs\full-blonde.png" />
+    <Content Include="assets\characters\textures\entity\skin\facialhairs\full-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\facialhairs\full-dark-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\facialhairs\full-red.png" />
+    <Content Include="assets\characters\textures\entity\skin\facialhairs\full-white.png" />
+    <Content Include="assets\characters\textures\entity\skin\hairs\m-black.png" />
+    <Content Include="assets\characters\textures\entity\skin\hairs\m-blonde.png" />
+    <Content Include="assets\characters\textures\entity\skin\hairs\m-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\hairs\m-dark-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\hairs\m-red.png" />
+    <Content Include="assets\characters\textures\entity\skin\hairs\m-white.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\female\brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\female\light-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\female\olive.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\female\pale.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\female\tan.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\female\yellow.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\male\brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\male\light-brown.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\male\olive.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\male\pale.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\male\tan.png" />
+    <Content Include="assets\characters\textures\entity\skin\skins\male\yellow.png" />
     <Content Include="modinfo.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Core.cs" />
     <Compile Include="src\EntityRenderer\EntityCustomShapeRenderer.cs" />
     <Compile Include="src\EnumSkinType.cs" />
     <Compile Include="src\Gui\GuiDialogSkin.cs" />
+    <Compile Include="src\Network\ProtoContracts\SkinChange.cs" />
     <Compile Include="src\Network\ServerSkinNetwork.cs" />
     <Compile Include="src\Network\ClientSkinNetwork.cs" />
-    <Compile Include="src\Network\ProtoContracts.cs" />
-    <Compile Include="src\PlayerSkins.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="assets\playerskins\patches\player-patch.json" />
+    <None Include="assets\characters\patches\player-patch.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

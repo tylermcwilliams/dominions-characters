@@ -1,4 +1,4 @@
-﻿namespace playerskins
+﻿namespace dominions.characters
 {
     public enum EnumSkinPart
     {

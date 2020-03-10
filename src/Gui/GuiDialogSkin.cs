@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 
-namespace playerskins
+namespace dominions.characters
 {
     public class GuiDialogSkin : GuiDialog
     {
@@ -192,7 +191,7 @@ namespace playerskins
             string currentPart = capi.World.Player.Entity.WatchedAttributes.GetString(skinPart);
             string nextPart;
 
-            string[] skinOptions = PlayerSkins.skinTypes[skinPart];
+            string[] skinOptions = Core.skinTypes[skinPart];
             int nextIndex = Array.IndexOf(skinOptions, currentPart) + 1;
 
             if (nextIndex < skinOptions.Length)
@@ -212,7 +211,7 @@ namespace playerskins
             string currentPart = capi.World.Player.Entity.WatchedAttributes.GetString(skinPart);
             string previousPart;
 
-            string[] skinOptions = PlayerSkins.skinTypes[skinPart];
+            string[] skinOptions = Core.skinTypes[skinPart];
             int index = Array.IndexOf(skinOptions, currentPart);
             if (index > 0)
             {
