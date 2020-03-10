@@ -1,4 +1,4 @@
-# vs-playerskins
+# dominions-player-characters
 A mod for Vintage Story that allows players to select skins
 
 ## usage
