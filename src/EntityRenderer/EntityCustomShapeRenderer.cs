@@ -171,7 +171,6 @@ namespace dominions.characters
                 capi.Render.GlToggleBlend(false);
 
                 capi.Logger.Notification("================================== componentTexture" + (componentTexture == null));
-                capi.Logger.Notification("================================== alpha" + (alphaTest == null));
                 capi.Logger.Notification("================================== skinTexPos" + (skinTexPos == null));
 
                 capi.EntityTextureAtlas.RenderTextureIntoAtlas(
