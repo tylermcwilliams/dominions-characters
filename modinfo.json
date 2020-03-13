@@ -1,10 +1,10 @@
 {
   "type": "code",
-  "modid": "dominions-characters",
-  "name": "dominions-characters",
-  "author": "archpriest, balduranne",
+  "modid": "dominionscharacters",
+  "name": "dominionscharacters",
+  "author": ["archpriest", "balduranne"],
   "description": "adds the ability to change skins and personalize characters.",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "dependency": {
     "game": "1.12.6"
   }

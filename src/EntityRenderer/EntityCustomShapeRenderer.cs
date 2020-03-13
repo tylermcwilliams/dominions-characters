@@ -17,7 +17,7 @@ namespace dominions.characters
             get
             {
                 CompositeTexture cpt = null;
-                if (extraTexturesByTextureName?.TryGetValue(textureCode, out cpt) == true)
+                if (extraTexturesByTextureName != null && extraTexturesByTextureName.TryGetValue(textureCode, out cpt) == true)
                 {
                     return capi.EntityTextureAtlas.Positions[cpt.Baked.TextureSubId];
                 }
@@ -35,10 +35,7 @@ namespace dominions.characters
             {
                 entity.WatchedAttributes.RegisterModifiedListener(part, () =>
                 {
-                    if (entity.IsRendered)
-                    {
-                        this.reloadSkin();
-                    }
+                    this.reloadSkin();
                 });
             }
         }
@@ -72,6 +69,13 @@ namespace dominions.characters
 
         public override void reloadSkin()
         {
+            if (skinTexPos == null)
+            {
+                capi.ShowChatMessage("Error loading a player texture. Please send your client-main.txt file to the server owners so we may fix the issue.");
+                capi.Logger.Notification("================================== NULL SKIN TEXTPOS");
+                return;
+            }
+
             TextureAtlasPosition origTexPos = capi.EntityTextureAtlas.Positions[entity.Properties.Client.FirstTexture.Baked.TextureSubId];
 
             LoadedTexture entityAtlas = new LoadedTexture(null)
@@ -166,6 +170,10 @@ namespace dominions.characters
 
                 capi.Render.GlToggleBlend(false);
 
+                capi.Logger.Notification("================================== componentTexture" + (componentTexture == null));
+                capi.Logger.Notification("================================== alpha" + (alphaTest == null));
+                capi.Logger.Notification("================================== skinTexPos" + (skinTexPos == null));
+
                 capi.EntityTextureAtlas.RenderTextureIntoAtlas(
                     componentTexture,
                     0,
@@ -197,7 +205,7 @@ namespace dominions.characters
                 (int)EnumCharacterDressType.Face
             };
 
-            if (gearInv == null && eagent?.GearInventory != null)
+            if (gearInv == null && (eagent != null && eagent.GearInventory != null))
             {
                 eagent.GearInventory.SlotModified += gearSlotModified;
                 gearInv = eagent.GearInventory;
@@ -213,6 +221,10 @@ namespace dominions.characters
             {
                 int slotid = renderOrder[i];
 
+                if (gearInv[slotid] == null)
+                {
+                    continue;
+                }
                 ItemStack stack = gearInv[slotid]?.Itemstack;
                 if (stack == null) continue;
 
@@ -250,7 +262,7 @@ namespace dominions.characters
             base.Dispose();
 
             capi.Event.ReloadTextures -= reloadSkin;
-            if (eagent?.GearInventory != null)
+            if (eagent != null && eagent?.GearInventory != null)
             {
                 eagent.GearInventory.SlotModified -= gearSlotModified;
             }

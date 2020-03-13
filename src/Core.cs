@@ -37,7 +37,7 @@ namespace dominions.characters
         {
             this.clientSkinNetwork = new ClientSkinNetwork(api);
 
-            api.RegisterCommand("changeskin", "Opens skin change gui.", "", (int i, CmdArgs args) =>
+            api.RegisterCommand("skin", "Opens skin change gui.", "", (int i, CmdArgs args) =>
             {
                 GuiDialogSkin skinGui = new GuiDialogSkin(api, this.clientSkinNetwork);
                 skinGui.TryOpen();
