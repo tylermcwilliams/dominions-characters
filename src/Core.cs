@@ -14,9 +14,9 @@ namespace dominions.characters
         {
             ["skincolor"] = new[] { "brown", "light-brown", "olive", "yellow", "tan", "pale" },
             ["eyecolor"] = new[] { "dark-brown", "brown", "light-brown", "dark-green", "light-green", "deep-blue", "light-blue", "grey", "milky" },
-            ["haircolor"] = new[] { "black", "dark-brown", "brown", "red", "blonde", "white" },
-            ["hairtype"] = new[] { "none", "m" },
-            ["facialhair"] = new[] { "none", "full" },
+            ["haircolor"] = new[] { "black", "dark-brown", "brown", "red", "dark-blonde", "blonde", "white", "grey" },
+            ["hairtype"] = new[] { "none", "m", "two", "three", "four", "five", "six", "seven" },
+            ["facialhair"] = new[] { "none", "full", "two", "three", "four", "five", "six" },
         };
         // default skin
         public static Dictionary<string, string> defaultSkin = new Dictionary<string, string>()
