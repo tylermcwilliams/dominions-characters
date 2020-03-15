@@ -4,6 +4,8 @@ using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
+using System.Collections.Generic;
 
 namespace dominions.characters
 {
@@ -35,6 +37,10 @@ namespace dominions.characters
             {
                 entity.WatchedAttributes.RegisterModifiedListener(part, () =>
                 {
+                    if (skinTexPos == null)
+                    {
+                        capi.Logger.Notification("================================== FROM WACTHED == NULL");
+                    }
                     this.reloadSkin();
                 });
             }

@@ -2,6 +2,7 @@
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Client;
+using Vintagestory.API.Datastructures;
 
 namespace dominions.characters
 {
@@ -33,6 +34,11 @@ namespace dominions.characters
         ClientSkinNetwork clientSkinNetwork;
         ServerSkinNetwork serverSkinNetwork;
 
+        public override void Start(ICoreAPI api)
+        {
+            base.Start(api);
+        }
+
         public override void StartClientSide(ICoreClientAPI api)
         {
             this.clientSkinNetwork = new ClientSkinNetwork(api);
@@ -54,6 +60,7 @@ namespace dominions.characters
 
             base.StartServerSide(api);
         }
+
     }
 
 }
