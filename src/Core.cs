@@ -2,7 +2,6 @@
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
 using Vintagestory.API.Client;
-using Vintagestory.API.Datastructures;
 
 namespace dominions.characters
 {
@@ -60,7 +59,6 @@ namespace dominions.characters
 
             base.StartServerSide(api);
         }
-
     }
 
 }

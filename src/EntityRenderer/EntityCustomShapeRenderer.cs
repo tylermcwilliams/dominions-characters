@@ -4,8 +4,6 @@ using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Client;
-using Vintagestory.API.Datastructures;
-using System.Collections.Generic;
 
 namespace dominions.characters
 {
@@ -32,6 +30,7 @@ namespace dominions.characters
         {
             api.Event.ReloadTextures += reloadSkin;
 
+
             string[] skinParts = Core.skinTypes.Keys.ToArray();
             foreach (string part in skinParts)
             {
@@ -39,7 +38,7 @@ namespace dominions.characters
                 {
                     if (skinTexPos == null)
                     {
-                        capi.Logger.Notification("================================== FROM WACTHED == NULL");
+                        return;
                     }
                     this.reloadSkin();
                 });
@@ -77,8 +76,7 @@ namespace dominions.characters
         {
             if (skinTexPos == null)
             {
-                capi.ShowChatMessage("Error loading a player texture. Please send your client-main.txt file to the server owners so we may fix the issue.");
-                capi.Logger.Notification("================================== NULL SKIN TEXTPOS");
+                GetTextureSource();
                 return;
             }
 
@@ -165,19 +163,11 @@ namespace dominions.characters
                         break;
                 }
 
-
-                int textureSubID;
                 LoadedTexture componentTexture = new LoadedTexture(capi);
-                TextureAtlasPosition texPos = null;
                 BitmapRef bitMap = capi.Assets.Get(componentLoc).ToBitmap(capi);
                 capi.Render.GetOrLoadTexture(componentLoc, bitMap, ref componentTexture);
 
-                capi.EntityTextureAtlas.AllocateTextureSpace(bitMap.Width, bitMap.Height, out textureSubID, out texPos);
-
                 capi.Render.GlToggleBlend(false);
-
-                capi.Logger.Notification("================================== componentTexture" + (componentTexture == null));
-                capi.Logger.Notification("================================== skinTexPos" + (skinTexPos == null));
 
                 capi.EntityTextureAtlas.RenderTextureIntoAtlas(
                     componentTexture,
@@ -216,12 +206,6 @@ namespace dominions.characters
                 gearInv = eagent.GearInventory;
             }
 
-            // Ugly fix
-            if (gearInv == null)
-            {
-                return;
-            }
-
             for (int i = 0; i < renderOrder.Length; i++)
             {
                 int slotid = renderOrder[i];
@@ -230,7 +214,7 @@ namespace dominions.characters
                 {
                     continue;
                 }
-                ItemStack stack = gearInv[slotid]?.Itemstack;
+                ItemStack stack = gearInv[slotid].Itemstack;
                 if (stack == null) continue;
 
                 int itemTextureSubId = stack.Item.FirstTexture.Baked.TextureSubId;
@@ -267,7 +251,7 @@ namespace dominions.characters
             base.Dispose();
 
             capi.Event.ReloadTextures -= reloadSkin;
-            if (eagent != null && eagent?.GearInventory != null)
+            if (eagent != null && eagent.GearInventory != null)
             {
                 eagent.GearInventory.SlotModified -= gearSlotModified;
             }
