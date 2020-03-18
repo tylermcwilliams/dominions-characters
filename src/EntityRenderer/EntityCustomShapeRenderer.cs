@@ -9,7 +9,6 @@ namespace dominions.characters
 {
     public class EntityCustomShapeRenderer : EntityShapeRenderer
     {
-
         protected int skinTextureSubId;
 
         public override TextureAtlasPosition this[string textureCode]
@@ -29,7 +28,6 @@ namespace dominions.characters
         public EntityCustomShapeRenderer(Entity entity, ICoreClientAPI api) : base(entity, api)
         {
             api.Event.ReloadTextures += reloadSkin;
-
 
             string[] skinParts = Core.skinTypes.Keys.ToArray();
             foreach (string part in skinParts)
@@ -77,7 +75,6 @@ namespace dominions.characters
             if (skinTexPos == null)
             {
                 GetTextureSource();
-                return;
             }
 
             TextureAtlasPosition origTexPos = capi.EntityTextureAtlas.Positions[entity.Properties.Client.FirstTexture.Baked.TextureSubId];
@@ -204,6 +201,11 @@ namespace dominions.characters
             {
                 eagent.GearInventory.SlotModified += gearSlotModified;
                 gearInv = eagent.GearInventory;
+            }
+
+            if (gearInv == null)
+            {
+                return;
             }
 
             for (int i = 0; i < renderOrder.Length; i++)
