@@ -338,8 +338,7 @@
   <ItemGroup>
     <Compile Include="src\Core.cs" />
     <Compile Include="src\EntityRenderer\EntityCustomShapeRenderer.cs" />
-    <Compile Include="src\Entity\Behaviors\EntityBehaviorCustomName.cs" />
-    <Compile Include="src\EnumSkinType.cs" />
+    <Compile Include="src\EnumSkinPart.cs" />
     <Compile Include="src\Gui\GuiDialogSkin.cs" />
     <Compile Include="src\Network\ClientSkinNetwork.cs" />
     <Compile Include="src\Network\ProtoContracts\SkinChange.cs" />

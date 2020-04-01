@@ -88,18 +88,15 @@ namespace dominions.characters
 
             capi.Render.GlToggleBlend(true, EnumBlendMode.Overlay);
 
-            string[] skinParts = Enum.GetNames(typeof(EnumSkinPart));
             string componentPath = "characters:textures/entity/skin/";
 
+            string[] skinParts = Enum.GetNames(typeof(EnumSkinPart));
             for (int x = 0; x < skinParts.Length; x++)
             {
                 AssetLocation componentLoc;
                 string skinProperty = skinParts[x];
                 float alphaTest = 0.005f;
-                if (skinProperty == "haircolor")
-                {
-                    continue;
-                }
+
                 if (skinProperty == "hairtype" || skinProperty == "facialhair")
                 {
                     if (entity.WatchedAttributes.GetString(skinProperty, "none") == "none")
@@ -107,6 +104,7 @@ namespace dominions.characters
                         continue;
                     }
                 }
+
                 switch (skinProperty)
                 {
                     case "skincolor":

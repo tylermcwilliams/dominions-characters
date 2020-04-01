@@ -6,7 +6,5 @@
         eyecolor,
         facialhair,
         hairtype,
-        //
-        haircolor,
     }
 }
