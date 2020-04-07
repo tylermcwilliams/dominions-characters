@@ -48,7 +48,7 @@ namespace dominions.characters
                 skinGui.TryOpen();
             });
 
-            api.RegisterEntityRendererClass("CustomRenderer", typeof(EntityCustomShapeRenderer));
+            api.RegisterEntityRendererClass("CustomRenderer", typeof(EntityCharacterSkinRenderer));
 
             base.StartClientSide(api);
         }

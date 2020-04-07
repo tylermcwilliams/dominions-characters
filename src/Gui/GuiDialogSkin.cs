@@ -25,15 +25,17 @@ namespace dominions.characters
         {
             double pad = GuiElementItemSlotGrid.unscaledSlotPadding;
             double slotsize = GuiElementPassiveItemSlot.unscaledSlotSize;
-            string[] races = { "human" };
-            string[] sex = { "male", "female" };
 
             ElementBounds leftPrevButtonBounds = ElementBounds.Fixed(75, 120 + pad + 52, 19, 19).WithFixedPadding(2);
             ElementBounds leftNextButtonBounds = ElementBounds.Fixed(75, 120 + pad + 52, 19, 19).WithFixedPadding(2).FixedRightOf(leftPrevButtonBounds, 6);
             ElementBounds textBounds = ElementBounds.Fixed(0, 120 + pad + 52, 19, 19).WithFixedPadding(2);
-            ElementBounds raceButtonBounds = ElementBounds.Fixed(0, pad + 52, 19, 19).WithFixedPadding(2);
+
+            ElementBounds humanButtonBounds = ElementBounds.Fixed(0, pad + 52, 19, 19).WithFixedPadding(2);
+            ElementBounds dwarfButtonBounds = ElementBounds.Fixed(0, pad + 52, 19, 19).WithFixedPadding(2).FixedRightOf(humanButtonBounds, 30);
+
             ElementBounds maleButtonBounds = ElementBounds.Fixed(0, 57 + pad + 52, 19, 19).WithFixedPadding(2);
             ElementBounds femaleButtonBounds = ElementBounds.Fixed(0, 57 + pad + 52, 19, 19).WithFixedPadding(2).FixedRightOf(maleButtonBounds, 30);
+
             ElementBounds titleTextBounds = ElementBounds.Fixed(0, pad + 20, 19, 19).WithFixedPadding(2);
 
             characterInv = capi.World.Player.InventoryManager.GetOwnInventory(GlobalConstants.characterInvClassName);
@@ -59,7 +61,8 @@ namespace dominions.characters
 
                     // Race
                     .AddStaticTextAutoBoxSize("Race:", CairoFont.WhiteSmallishText(), EnumTextOrientation.Right, titleTextBounds.FlatCopy())
-                    .AddSmallButton("Human", () => ButtonClickRace("human"), raceButtonBounds.FlatCopy())
+                    .AddSmallButton("Human", () => ButtonClickRace("human"), humanButtonBounds.FlatCopy())
+                    .AddSmallButton("Dwarf", () => ButtonClickRace("dwarf"), dwarfButtonBounds.FlatCopy())
 
                     // Sex
                     .AddStaticTextAutoBoxSize("Sex:", CairoFont.WhiteSmallishText(), EnumTextOrientation.Right, titleTextBounds = titleTextBounds.BelowCopy(0, 35))
@@ -73,7 +76,7 @@ namespace dominions.characters
                     .AddIconButton("right", (on) => OnNext("skincolor"), leftNextButtonBounds.FlatCopy())
                     .AddStaticTextAutoBoxSize("Skin color:", CairoFont.WhiteDetailText(), EnumTextOrientation.Right, textBounds.FlatCopy())
 
-                    // Eye Color 
+                    // Eye Color
                     .AddIconButton("left", (on) => OnPrevious("eyecolor"), leftPrevButtonBounds = leftPrevButtonBounds.BelowCopy(0, 5))
                     .AddIconButton("right", (on) => OnNext("eyecolor"), leftNextButtonBounds = leftNextButtonBounds.BelowCopy(0, 5))
                     .AddStaticTextAutoBoxSize("Eye color:", CairoFont.WhiteDetailText(), EnumTextOrientation.Right, textBounds = textBounds.BelowCopy(0, 5))
@@ -174,7 +177,7 @@ namespace dominions.characters
             TryClose();
         }
 
-        // May need this 
+        // May need this
         protected void SendInvPacket(object packet)
         {
             capi.Network.SendPacketClient(packet);
@@ -227,6 +230,7 @@ namespace dominions.characters
 
         private bool ButtonClickRace(string race)
         {
+            this.clientSkinNetwork.SendSkinPacket("race", race);
             return true;
         }
 
