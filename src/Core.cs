@@ -1,7 +1,14 @@
 ﻿using System.Collections.Generic;
 using Vintagestory.API.Server;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Client;
+
+[assembly: ModInfo("dominionscharacters",
+    Description = "Utils mod for Dominions Server",
+    Authors = new[] { "archpriest" }
+    )
+]
 
 namespace dominions.characters
 {
@@ -48,7 +55,7 @@ namespace dominions.characters
                 skinGui.TryOpen();
             });
 
-            api.RegisterEntityRendererClass("CustomRenderer", typeof(EntityCustomShapeRenderer));
+            api.RegisterEntityRendererClass("CustomRenderer", typeof(EntityCharacterSkinRenderer));
 
             base.StartClientSide(api);
         }
