@@ -31,7 +31,7 @@ namespace dominions.characters
             ElementBounds textBounds = ElementBounds.Fixed(0, 120 + pad + 52, 19, 19).WithFixedPadding(2);
 
             ElementBounds humanButtonBounds = ElementBounds.Fixed(0, pad + 52, 19, 19).WithFixedPadding(2);
-            ElementBounds dwarfButtonBounds = ElementBounds.Fixed(0, pad + 52, 19, 19).WithFixedPadding(2).FixedRightOf(humanButtonBounds, 30);
+            ElementBounds dwarfButtonBounds = ElementBounds.Fixed(0, pad + 52, 19, 19).WithFixedPadding(2).FixedRightOf(humanButtonBounds, 40);
 
             ElementBounds maleButtonBounds = ElementBounds.Fixed(0, 57 + pad + 52, 19, 19).WithFixedPadding(2);
             ElementBounds femaleButtonBounds = ElementBounds.Fixed(0, 57 + pad + 52, 19, 19).WithFixedPadding(2).FixedRightOf(maleButtonBounds, 30);
@@ -56,7 +56,7 @@ namespace dominions.characters
             SingleComposer = capi.Gui
                 .CreateCompo("playercharacter", dialogBounds)
                 .AddDialogBG(bgBounds, true)
-                .AddDialogTitleBar(capi.World.Player.PlayerName, OnTitleBarClose)
+                //.AddDialogTitleBar(capi.World.Player.PlayerName, OnTitleBarClose)
                 .BeginChildElements(bgBounds)
 
                     // Race
@@ -95,6 +95,8 @@ namespace dominions.characters
                     .AddIconButton("left", (on) => OnPrevious("facialhair"), leftPrevButtonBounds = leftPrevButtonBounds.BelowCopy(0, 5))
                     .AddIconButton("right", (on) => OnNext("facialhair"), leftNextButtonBounds = leftNextButtonBounds.BelowCopy(0, 5))
                     .AddStaticTextAutoBoxSize("Facial hair:", CairoFont.WhiteDetailText(), EnumTextOrientation.Right, textBounds = textBounds.BelowCopy(0, 7))
+
+                    .AddSmallButton("Confirm", () => TryClose(), textBounds = textBounds.BelowCopy(0, 7))
 
                     //.AddItemSlotGrid(characterInv, SendInvPacket, 1, new int[] { 0, 1, 2, 11, 3, 4 }, leftSlotBounds, "leftSlots")
                     .AddInset(insetSlotBounds, 2)

@@ -7,7 +7,7 @@ using Vintagestory.API.Client;
 
 namespace dominions.characters
 {
-    public class EntityCharacterSkinRenderer : EntityCustomShapeRenderer
+    public class EntityCharacterSkinRenderer : EntityShapeRenderer
     {
         protected int skinTextureSubId;
 
@@ -29,18 +29,29 @@ namespace dominions.characters
         {
             api.Event.ReloadTextures += reloadSkin;
 
+            this.setShape();
+
+            // TEXTURE LISTENER
             string[] skinParts = Core.skinTypes.Keys.ToArray();
             foreach (string part in skinParts)
             {
                 entity.WatchedAttributes.RegisterModifiedListener(part, () =>
                 {
-                    if (skinTexPos == null)
-                    {
-                        return;
-                    }
                     this.reloadSkin();
                 });
             }
+            entity.WatchedAttributes.RegisterModifiedListener("sex", () =>
+                {
+                    this.reloadSkin();
+                });
+
+            // SHAPE LISTENER
+            entity.WatchedAttributes.RegisterModifiedListener("race", () =>
+                {
+                    this.setShape();
+                    this.TesselateShape();
+                });
+
         }
 
         bool textureSpaceAllocated = false;
@@ -68,6 +79,51 @@ namespace dominions.characters
             {
                 reloadSkin();
             }
+        }
+
+        public virtual void setShape()
+        {
+            float x, z, scale;
+
+            switch (entity.WatchedAttributes.GetString("race", "human"))
+            {
+                case "dwarf":
+                    x = z = 1.5f;
+                    scale = 0.65f;
+                    this.WindWaveIntensity = 0;
+                    break;
+                case "human":
+                default:
+                    this.WindWaveIntensity = 1;
+                    x = z = scale = 1f;
+                    break;
+            }
+
+            Shape entityShape = entity.Properties.Client.LoadedShape;
+
+            ShapeElement[] newElements = entityShape.CloneElements();
+
+            newElements[0].ScaleX = x;
+            newElements[0].ScaleZ = z;
+
+            Shape newShape = new Shape()
+            {
+                Elements = newElements,
+                Animations = entityShape.Animations,
+                AnimationsByCrc32 = entityShape.AnimationsByCrc32,
+                AttachmentPointsByCode = entityShape.AttachmentPointsByCode,
+                JointsById = entityShape.JointsById,
+                TextureWidth = entityShape.TextureWidth,
+                TextureHeight = entityShape.TextureHeight,
+                TextureSizes = entityShape.TextureSizes,
+                Textures = entityShape.Textures,
+            };
+
+            newShape.ResolveAndLoadJoints("head");
+
+            this.OverrideEntityShape = newShape;
+
+            entity.Properties.Client.Size = scale;
         }
 
         public override void reloadSkin()
