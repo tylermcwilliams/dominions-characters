@@ -14,9 +14,7 @@ namespace dominions.characters
 {
     public class Core : ModSystem
     {
-        // Might move to a JSON
         #region Config
-        // list of skin parts
         public static Dictionary<string, string[]> skinTypes = new Dictionary<string, string[]>()
         {
             ["skincolor"] = new[] { "brown", "light-brown", "olive", "yellow", "tan", "pale" },
@@ -25,29 +23,24 @@ namespace dominions.characters
             ["hairtype"] = new[] { "none", "m", "two", "three", "four", "five", "six", "seven" },
             ["facialhair"] = new[] { "none", "full", "two", "three", "four", "five", "six" },
         };
-        // default skin
-        public static Dictionary<string, string> defaultSkin = new Dictionary<string, string>()
-        {
-            ["skincolor"] = "tan",
-            ["eyecolor"] = "brown",
-            ["haircolor"] = "brown",
-            ["hairtype"] = "m",
-            ["facialhair"] = "full",
-            ["sex"] = "male"
-        };
         #endregion
 
         ClientSkinNetwork clientSkinNetwork;
         ServerSkinNetwork serverSkinNetwork;
 
-        public override void Start(ICoreAPI api)
-        {
-            base.Start(api);
-        }
-
         public override void StartClientSide(ICoreClientAPI api)
         {
             this.clientSkinNetwork = new ClientSkinNetwork(api);
+
+            api.Event.LevelFinalize += () =>
+            {
+                api.World.Player.Entity.WatchedAttributes.RegisterModifiedListener("race", () =>
+                {
+                    SetRacials(api.World.Player.Entity);
+                });
+                SetRacials(api.World.Player.Entity);
+            };
+
 
             api.RegisterCommand("skin", "Opens skin change gui.", "", (int i, CmdArgs args) =>
             {
@@ -64,7 +57,30 @@ namespace dominions.characters
         {
             this.serverSkinNetwork = new ServerSkinNetwork(api);
 
+            api.Event.PlayerJoin += (IServerPlayer player) =>
+            {
+                player.Entity.WatchedAttributes.RegisterModifiedListener("race", () =>
+                {
+                    SetRacials(player.Entity);
+                });
+                SetRacials(player.Entity);
+            };
+
             base.StartServerSide(api);
+        }
+
+        private void SetRacials(EntityPlayer entityPlayer)
+        {
+            switch (entityPlayer.WatchedAttributes.GetString("race", "human"))
+            {
+                case "dwarf":
+                    entityPlayer.Properties.SetEyeHeight(1.11);
+                    break;
+                case "human":
+                default:
+                    entityPlayer.Properties.SetEyeHeight(1.7);
+                    break;
+            }
         }
     }
 
