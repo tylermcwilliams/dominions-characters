@@ -4,7 +4,7 @@
   "name": "dominionscharacters",
   "author": ["archpriest", "balduranne"],
   "description": "adds the ability to change skins and personalize characters.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "dependency": {
     "game": "1.12.6"
   }
